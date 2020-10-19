@@ -81,7 +81,7 @@ public class Main {
 				listPersons.addAll(c.makeChildren());
 			}
 			totalPatronyms=getAllPatronyms(listPersons).size();
-			System.out.println("Generation " + generation + ": " + totalPatronyms + " patronyms");
+			System.out.println("Generation " + (generation+1) + ": " + totalPatronyms + " patronyms");
 		}
 	}
 }
