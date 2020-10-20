@@ -2,7 +2,6 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
-#include <windows.h>
 
 using namespace std;
 
@@ -23,7 +22,7 @@ int main()
     diplayState(generation, nbPersonsWithPatronym.size());
     for(generation=1; (generation<generationMax) && (nbPersonsWithPatronym.size()>1); generation++)
     {
-        for(int j=0; j<nbPersonsWithPatronym.size(); j++)
+        for(int j=0; j<(int)nbPersonsWithPatronym.size(); j++)
         {
             unsigned int nbPersonsWithThisPatronym=nbPersonsWithPatronym[j];
             for(unsigned int k=0; k<nbPersonsWithThisPatronym; k++)
