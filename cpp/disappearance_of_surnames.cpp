@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <cstdlib>
-#include <ctime>
+#include <random>
+#include <chrono>
 
 using namespace std;
 
@@ -9,18 +9,24 @@ inline void diplayState(unsigned long long nbGen, unsigned long long nbPat);
 
 int main()
 {
-    unsigned int nbPers=1000, nbPatronyms=200, generationMax=500000, rangeToDisplay=10; /// !!! nbPers=nb of MALES
-    srand(time(nullptr));
+    unsigned int nbPers=5000, nbPatronyms=50, generationMax=0, rangeToDisplay=1; /// !!! nbPers=nb of MALES
+    if(nbPers<nbPatronyms)
+    {
+        cerr << "Error: you need at least as much patronyms as persons" << endl;
+        return -1;
+    }
     if(nbPers%nbPatronyms!=0)
     {
         cerr << "Warning: number of persons isn't multiple of number of patronyms" << endl;
         nbPers-=nbPers%nbPatronyms;
     }
+    default_random_engine gen(chrono::steady_clock::now().time_since_epoch().count());
+    uniform_int_distribution<> dis(0, 1);
     unsigned int personsWithSamePatronym=nbPers/nbPatronyms;
     vector<long long> nbPersonsWithPatronym(nbPatronyms, personsWithSamePatronym);
     unsigned int generation=0;
     diplayState(generation, nbPersonsWithPatronym.size());
-    for(generation=1; (generation<generationMax) && (nbPersonsWithPatronym.size()>1); generation++)
+    for(generation=1; (generation<generationMax || generationMax==0) && (nbPersonsWithPatronym.size()>1); generation++)
     {
         for(int j=0; j<(int)nbPersonsWithPatronym.size(); j++)
         {
@@ -32,7 +38,7 @@ int main()
                 {
                     familyToChange=rand()%nbPersonsWithPatronym.size();
                 }
-                switch(rand()%4)
+                switch(dis(gen))
                 {
                 case 0:
                     nbPersonsWithPatronym[j]--;
