@@ -9,7 +9,7 @@ inline void diplayState(unsigned long long nbGen, unsigned long long nbPat);
 
 int main()
 {
-    unsigned int nbPers=5000, nbPatronyms=50, generationMax=0, rangeToDisplay=1; /// !!! nbPers=nb of MALES
+    unsigned int nbPers=5000, nbPatronyms=4, generationMax=0, rangeToDisplay=1; /// !!! nbPers=nb of MALES
     if(nbPers<nbPatronyms)
     {
         cerr << "Error: you need at least as much patronyms as persons" << endl;
@@ -24,7 +24,7 @@ int main()
     uniform_int_distribution<> dis(0, 1);
     unsigned int personsWithSamePatronym=nbPers/nbPatronyms;
     vector<long long> nbPersonsWithPatronym(nbPatronyms, personsWithSamePatronym);
-    unsigned int generation=0;
+    unsigned int generation=0, halfLife=0, halfLifeTime=nbPatronyms/2;
     diplayState(generation, nbPersonsWithPatronym.size());
     for(generation=1; (generation<generationMax || generationMax==0) && (nbPersonsWithPatronym.size()>1); generation++)
     {
@@ -73,8 +73,13 @@ int main()
         {
             diplayState(generation, nbPersonsWithPatronym.size());
         }
+        if(nbPersonsWithPatronym.size()<=halfLifeTime && halfLife==0)
+        {
+            halfLife=generation;
+        }
     }
     cout << generation-1 << " generations needed in a way to have only one patronym" << endl;
+    cout << "Half life: " << halfLife << " generations" << endl;
     return 0;
 }
 
