@@ -21,7 +21,7 @@ int main()
         nbPers-=nbPers%nbPatronyms;
     }
     default_random_engine gen(chrono::steady_clock::now().time_since_epoch().count());
-    uniform_int_distribution<> dis(0, 1);
+    uniform_int_distribution<> dis(0, 3);
     unsigned int personsWithSamePatronym=nbPers/nbPatronyms;
     vector<long long> nbPersonsWithPatronym(nbPatronyms, personsWithSamePatronym);
     unsigned int generation=0, halfLife=0, halfLifeTime=nbPatronyms/2;
