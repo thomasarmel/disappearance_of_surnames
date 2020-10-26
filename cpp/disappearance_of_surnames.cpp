@@ -9,7 +9,7 @@ inline void diplayState(unsigned long long nbGen, unsigned long long nbPat);
 
 int main()
 {
-    unsigned int nbPers=5000, nbPatronyms=4, generationMax=0, rangeToDisplay=1; /// !!! nbPers=nb of MALES
+    unsigned int nbPers=10000, nbPatronyms=200, generationMax=0, rangeToDisplay=1; /// !!! nbPers=nb of MALES
     if(nbPers<nbPatronyms)
     {
         cerr << "Error: you need at least as much patronyms as persons" << endl;
@@ -36,7 +36,8 @@ int main()
                 int familyToChange=j;
                 while(familyToChange==j)
                 {
-                    familyToChange=rand()%nbPersonsWithPatronym.size();
+                    uniform_int_distribution<> dis2(0, nbPersonsWithPatronym.size()-1);
+                    familyToChange=dis2(gen);
                 }
                 switch(dis(gen))
                 {
@@ -85,5 +86,6 @@ int main()
 
 inline void diplayState(unsigned long long nbGen, unsigned long long nbPat)
 {
-    cout << "Generation " << nbGen << ": " << nbPat << " patronyms" << endl;
+    //cout << "Generation " << nbGen << ": " << nbPat << " patronyms" << endl;
+    cout << nbGen << ";" << nbPat << endl;
 }
